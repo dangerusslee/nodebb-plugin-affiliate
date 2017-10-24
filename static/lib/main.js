@@ -1,6 +1,8 @@
 "use strict";
 
+
 $(document).ready(function() {
+	
 	/*
 		This file shows how client-side javascript can be included via a plugin.
 		If you check `plugin.json`, you'll see that this file is listed under "scripts".
@@ -13,6 +15,6 @@ $(document).ready(function() {
 		$(window).on('action:ajaxify.end', function(data) { ... });			"data" contains "url"
 	*/
 
-	console.log('nodebb-plugin-quickstart: loaded');
+	console.log('nodebb-plugin-amazon: loaded');
 	// Note how this is shown in the console on the first load of every page
 });

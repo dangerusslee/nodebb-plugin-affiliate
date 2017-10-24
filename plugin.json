@@ -1,6 +1,6 @@
 {
-	"id": "nodebb-plugin-quickstart",
-	"url": "https://github.com/NodeBB/nodebb-plugin-quickstart",
+	"id": "nodebb-plugin-affiliate",
+	"url": "https://github.com/dangerusslee/nodebb-plugin-affiliate",
 	"library": "./library.js",
 	"hooks": [
 		{
@@ -8,6 +8,9 @@
 		},
 		{
 			"hook": "filter:admin.header.build", "method": "addAdminNavigation"
+		}, 
+		{ 	
+			"hook": "filter:config.get", "method": "getThemeConfig" 
 		}
 	],
 	"staticDirs": {
@@ -17,7 +20,11 @@
 		"static/style.less"
 	],
 	"scripts": [
-		"static/lib/main.js"
+		"static/lib/main.js",
+		"static/lib/cj.js",
+		"static/lib/url.js"
+		
+		
 	],
 	"acpScripts": [
 		"static/lib/admin.js"
