@@ -345,7 +345,7 @@
 
             for (s = paths.length; i < s; i++) {
                 paths[i] = !i && paths[i].match(/^\w:$/) ? paths[i] :
-                    encode(paths[i]);
+                    encodeURI(paths[i]);
             }
 
             this.path = prefix + paths.join('/');
