@@ -1,7 +1,7 @@
 {
   "name": "nodebb-plugin-affiliate",
   "version": "0.0.1",
-  "description": "Amazon Links",
+  "description": "Auto Affiliate Links",
   "main": "library.js",
   "repository": {
     "type": "git",
