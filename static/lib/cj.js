@@ -11,10 +11,16 @@
     var sid = undefined;
     var debug = false;
     var amazon_tag= "phtwllt-20";
+    var amazon_enabled=true;
+    var cj_enabled=true;
+    
     (function() {
+
+        
         var getPageBasedImpressionUrl = function() {
             return '//' + trackingServerDomain + '/pageImpression';
         } 
+         
           , collectDomains = function(content) {
             var collectedDomains = [];
             var anchors = $(".content a");//content.getElementsByTagName("a");
@@ -106,6 +112,15 @@
                 return -1;
             }
         }
+
+        function checkIfEnabled () {
+            if (typeof global_amazon_enabled !== 'undefined') {
+                amazon_enabled=global_amazon_enabled;
+            }
+            if (typeof global_cj_enabled  !== 'undefined') {
+                cj_enabled=global_cj_enabled;
+            }
+      }
 
         //dom ready with support for older browsers (IE8)
         //  if support no longer needed, just use
@@ -220,7 +235,7 @@
                 frag = url.substring(hashIndex + 1);
                 url = url.substring(0, hashIndex);
             }
-            if (domains.indexOf(domainInLowerCase) >= 0 || matchesParentDomain(domainInLowerCase)) {
+            if (cj_enabled && (domains.indexOf(domainInLowerCase) >= 0 || matchesParentDomain(domainInLowerCase))) {
                 log("Domain found in list. Automonetizing...");
                 var extraParams = "";
                 if (sid) {
@@ -231,8 +246,9 @@
                 }
                 element.href = "//" + trackingServerDomain + "/links/" + websiteId + "/type/am" + extraParams + "/" + url;
             }
-            else if (domainInLowerCase.indexOf("amazon.com")!== -1) {
+            else if (amazon_enabled && domainInLowerCase.indexOf("amazon.com")!== -1) {
                 var u = new Url(url);
+                log(u);
                 u.query["tag"]=amazon_tag;
                 element.href=u;
             }
@@ -266,16 +282,17 @@
         }
         $(window).on('action:ajaxify.end', function() {
             log("cj ajaxify.end");
+            checkIfEnabled();
             autoMonetizeLinks();
         });
 
-        if (document.readyState === "complete") {
+        /*if (document.readyState === "complete") {
             log("readState is complete");
             autoMonetizeLinks();
         } else {
             log("DOMContentLoaded is registered");
             bindReady(autoMonetizeLinks)
-        }
+        }*/
     }
     )();
 }
