@@ -11,8 +11,12 @@
     var sid = undefined;
     var debug = false;
     var amazon_tag= "phtwllt-20";
+    var epn_campaign = 5338188580;
+    var epn_pub = 5575178708;
+    
     var amazon_enabled=true;
     var cj_enabled=true;
+    var ebay_enabled=true;
     
     (function() {
 
@@ -119,6 +123,9 @@
             }
             if (typeof global_cj_enabled  !== 'undefined') {
                 cj_enabled=global_cj_enabled;
+            }
+            if (typeof global_ebay_enabled  !== 'undefined') {
+                ebay_enabled=global_ebay_enabled;
             }
       }
 
@@ -252,8 +259,15 @@
                 u.query["tag"]=amazon_tag;
                 element.href=u;
             }
+            else if (ebay_enabled && domainInLowerCase.indexOf("ebay.com")!== -1) {
+                var u = new Url("https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800")
+                //pub=5575178708&campid=5338188580&mpre=");
+                u.query["pub"]=epn_pub;
+                u.query["campid"]=epn_campaign;
+                u.query["mpre"]=url;
+                element.href=u;
+            }
             else {
-
                 log("Domain not found in list. ");
             }
 
