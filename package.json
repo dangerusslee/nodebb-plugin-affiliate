@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-affiliate",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Auto Affiliate Links",
   "main": "library.js",
   "repository": {
