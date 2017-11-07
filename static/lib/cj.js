@@ -173,14 +173,21 @@
     var publisherId = 4999405;
     var sid = undefined;
     var debug = false;
+    //Amazon
     var amazon_tag = "phtwllt-20";
+    //ebay
     var epn_campaign = 5338188580;
     var epn_pub = 5575178708;
+    //linkshare
+    var ls_id="R*/doq1oWeQ"
+    //walmart
+    var wm_offerid="223073.1";
 
     var amazon_enabled = true;
     var cj_enabled = true;
     var ebay_enabled = true;
     var ir_enabled = true;
+    var ls_enabled = true;
     (function() {
         var getPageBasedImpressionUrl = function() {
                 return '//' + trackingServerDomain + '/pageImpression';
@@ -287,6 +294,9 @@
             }
             if (typeof global_ir_enabled !== 'undefined') {
                 ir_enabled = global_ir_enabled;
+            }
+            if (typeof global_ls_enabled !== 'undefined') {
+                ls_enabled = global_ls_enabled;
             }
         }
 
@@ -419,7 +429,8 @@
                 log(u);
                 u.query["tag"] = amazon_tag;
                 element.href = u;
-            } else if (ebay_enabled && domainInLowerCase.indexOf("ebay.com") !== -1) {
+            } else if (ebay_enabled && domainInLowerCase.indexOf("ebay.com") !== -1 && domainInLowerCase.indexOf(
+                "rover.ebay.com") == -1) {
                 var u = new Url("https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800")
                 //pub=5575178708&campid=5338188580&mpre=");
                 u.query["pub"] = epn_pub;
@@ -430,6 +441,14 @@
                     "goto.target.com") == -1) {
                 var u = new Url("http://goto.target.com/c/437216/81938/2092");
                 u.query["u"] = url;
+                log(url);
+                element.href = u;
+            } else if (ls_enabled && domainInLowerCase.indexOf("walmart.com") !== -1 && domainInLowerCase.indexOf(
+                "linksynergy.walmart.com") == -1) {
+                var u = new Url("http://linksynergy.walmart.com/fs-bin/click?subid=0&type=10&tmpid=1082");
+                u.query["RD_PARM1"] = url;
+                u.query["id"]=ls_id;
+                u.query["offerid"]=wm_offerid;
                 log(url);
                 element.href = u;
             } else {
