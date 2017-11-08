@@ -182,7 +182,9 @@
     var ls_id="R*/doq1oWeQ"
     //walmart
     var wm_offerid="223073.1";
-
+    //bestbuy
+    var bb_offerid="492045.1";
+    
     var amazon_enabled = true;
     var cj_enabled = true;
     var ebay_enabled = true;
@@ -451,7 +453,15 @@
                 u.query["offerid"]=wm_offerid;
                 log(url);
                 element.href = u;
-            } else {
+            } else if (ls_enabled && domainInLowerCase.indexOf("bestbuy.com") !== -1) {
+                var u = new Url("http://click.linksynergy.com//fs-bin/click?subid=0&type=10&tmpid=13127");
+                u.query["RD_PARM1"] = url;
+                u.query["id"]=ls_id;
+                u.query["offerid"]=bb_offerid;
+                log(url);
+                element.href = u;
+            }
+            else {
                 log("Domain not found in list. ");
             }
 
