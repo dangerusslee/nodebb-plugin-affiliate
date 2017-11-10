@@ -183,13 +183,21 @@
     //walmart
     var wm_offerid="223073.1";
     //bestbuy
-    var bb_offerid="492045.1";
-    
+    var bb_offerid="492045.1";    
+
+    //groupon
+    var affiliateCountries='.groupon.com';
+    var gpnWebSite=[{'id':209005, 'name':'http://phatwalletforums.com'}];
+    var gpnAffiliateId='208001'; 
+    var gpnBaseURL='https://partner.groupon.com';
+
+
     var amazon_enabled = true;
     var cj_enabled = true;
     var ebay_enabled = true;
     var ir_enabled = true;
     var ls_enabled = true;
+    var gp_enabled = true;
     (function() {
         var getPageBasedImpressionUrl = function() {
                 return '//' + trackingServerDomain + '/pageImpression';
@@ -300,6 +308,9 @@
             if (typeof global_ls_enabled !== 'undefined') {
                 ls_enabled = global_ls_enabled;
             }
+            if (typeof global_gp_enabled !== 'undefined') {
+                gp_enabled = global_gp_enabled;
+            }
         }
 
         //dom ready with support for older browsers (IE8)
@@ -382,6 +393,11 @@
             }
         }
 
+        function decodeEntities(encodedString) {
+            var textArea = document.createElement('textarea');
+            textArea.innerHTML = encodedString;
+            return textArea.value;
+        }
         function getDomainAndProtocol(url) {
             var matches = url.match(/^(https?)\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
             var protocol = matches && matches[1];
@@ -460,8 +476,33 @@
                 u.query["offerid"]=bb_offerid;
                 log(url);
                 element.href = u;
-            }
-            else {
+            } else if (gp_enabled && domainInLowerCase.indexOf("groupon.com") !== -1 && domainInLowerCase.indexOf(
+            "tracking.groupon.com") == -1) {  
+                $.ajax({
+                    type: "GET",
+                    url:  gpnBaseURL+"/bookmarklet/v1/create/campaign",
+                    data: {affiliateId : gpnAffiliateId, dealUrl : url },
+                    dataType: "jsonp",
+                    jsonpCallback : "jsonpCallback",
+                    contentType : "application/json",
+                    success: function(data) {
+                        if(data.errors.length != 0) {
+                          log("Unable to generate partner link for this deal");
+                        }
+                        else {
+                            var u=$($.parseHTML(decodeEntities(data.sniplet))).filter("a").attr("href");
+                            log(u);
+                            element.href = u;
+                        }
+                    },
+                    error: function() {
+                      console.log("Unable to generate partner link for this deal");
+                    },
+                  complete : function() {
+                      console.log("done");
+                  }
+                  });
+            } else {
                 log("Domain not found in list. ");
             }
 
