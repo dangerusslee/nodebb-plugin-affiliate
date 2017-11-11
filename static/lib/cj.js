@@ -179,6 +179,8 @@
     var wm_offerid="223073.1";
     //bestbuy
     var bb_offerid="492045.1";    
+    //sams club
+    var sc_offerid="477763.1";
 
     //groupon
     var affiliateCountries='.groupon.com';
@@ -469,6 +471,13 @@
                 u.query["RD_PARM1"] = url;
                 u.query["id"]=ls_id;
                 u.query["offerid"]=bb_offerid;
+                log(url);
+                element.href = u;
+            } else if (ls_enabled && domainInLowerCase.indexOf("samsclub.com") !== -1) {
+                var u = new Url("http://click.linksynergy.com//fs-bin/click?subid=0&type=10&tmpid=13343");
+                u.query["RD_PARM1"] = url;
+                u.query["id"]=ls_id;
+                u.query["offerid"]=sc_offerid;
                 log(url);
                 element.href = u;
             } else if (gp_enabled && domainInLowerCase.indexOf("groupon.com") !== -1 && domainInLowerCase.indexOf(
