@@ -458,7 +458,13 @@
                 u.query["u"] = url;
                 log(url);
                 element.href = u;
-            } else if (ls_enabled && domainInLowerCase.indexOf("walmart.com") !== -1 && domainInLowerCase.indexOf(
+            } else if (ir_enabled && domainInLowerCase.indexOf("adorama.com") !== -1 && domainInLowerCase.indexOf(
+                "adorama.evyy.net") == -1) {
+                var u = new Url("http://adorama.evyy.net/c/437216/51926/1036");
+                u.query["u"] = url;
+                log(url);
+                element.href = u;
+             } else if (ls_enabled && domainInLowerCase.indexOf("walmart.com") !== -1 && domainInLowerCase.indexOf(
                 "linksynergy.walmart.com") == -1) {
                 var u = new Url("http://linksynergy.walmart.com/fs-bin/click?subid=0&type=10&tmpid=1082");
                 u.query["RD_PARM1"] = url;
