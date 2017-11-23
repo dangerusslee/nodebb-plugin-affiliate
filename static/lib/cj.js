@@ -480,7 +480,7 @@
                 log(url);
                 element.href = u;
             } else if (ls_enabled && domainInLowerCase.indexOf("samsclub.com") !== -1) {
-                var u = new Url("http://click.linksynergy.com//fs-bin/click?subid=0&type=10&tmpid=13343");
+                var u = new Url("http://click.linksynergy.com//fs-bin/click?subid=0&type=10&tmpid=13344");
                 u.query["RD_PARM1"] = url;
                 u.query["id"]=ls_id;
                 u.query["offerid"]=sc_offerid;
