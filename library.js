@@ -1,10 +1,10 @@
 "use strict";
+var url = require('url');
 
 var controllers = require('./lib/controllers'),
 	url = require('url'),
 	plugin = {},
 	meta = module.parent.require('./meta');
-
 plugin.init = function(params, callback) {
 	var router = params.router,
 		hostMiddleware = params.middleware,
@@ -36,5 +36,26 @@ plugin.addAdminNavigation = function(header, callback) {
 
 	callback(null, header);
 };
+plugin.processPost = function(data, callback) {
+	var linkRegex= /"(https?:\/\/[^"]+)"/gm
+	let content=data["postData"]["content"];
+	var match;
+	while(match = linkRegex.exec(content)) {
+		// Only match if it is a naked link (no anchor text)
 
+		var target;
+		try {
+			target = url.parse(match[1], true);
+		} catch (err) {
+			target = '';
+		}
+
+		if  (target.host.toLowerCase().indexOf("amazon.com") !== -1 ) {
+			target.query["tag"]="phtwllt-20";
+			var uri = url.format(target);
+			data["postData"]["content"] = content.split(match[1]).join(uri);
+		}
+	}
+	callback(null, data);
+}
 module.exports = plugin;
