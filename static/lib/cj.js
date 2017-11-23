@@ -183,7 +183,8 @@
     var sc_offerid="477763.1";
     //petsmart
     var ps_offerid="506142.1";
-
+    //jet.com
+    var jt_offerid="413201.1";
 
     //groupon
     var affiliateCountries='.groupon.com';
@@ -496,6 +497,13 @@
                 u.query["offerid"]=ps_offerid;
                 log(url);
                 element.href = u; 
+            } else if (ls_enabled && domainInLowerCase.indexOf("jet.com") !== -1) {
+                var u = new Url("http://click.linksynergy.com//fs-bin/click?subid=0&type=10&tmpid=20265");
+                u.query["RD_PARM1"] = url;
+                u.query["id"]=ls_id;
+                u.query["offerid"]=ps_offerid;
+                log(url);
+                element.href = u;                 
             } else if (gp_enabled && domainInLowerCase.indexOf("groupon.com") !== -1 && domainInLowerCase.indexOf(
             "tracking.groupon.com") == -1) {  
                 $.ajax({
