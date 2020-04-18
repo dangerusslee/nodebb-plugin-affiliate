@@ -495,6 +495,12 @@
                 u.query["offerid"]=wm_offerid;
                 log(url);
                 element.href = u;
+            } else if (ls_enabled && domainInLowerCase.indexOf("jackrabbit.com") !== -1) {
+                var u = new Url("https://click.linksynergy.com/deeplink?id=R*/doq1oWeQ");
+                u.query["murl"] = url;
+                u.query["mid"]=40451;
+                log(url);
+                element.href = u;
             } else if (ls_enabled && domainInLowerCase.indexOf("bestbuy.com") !== -1) {
                 var u = new Url("http://click.linksynergy.com//fs-bin/click?subid=0&type=10&tmpid=13127");
                 u.query["RD_PARM1"] = url;
